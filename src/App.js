@@ -4,6 +4,7 @@ import Appform from './components/Appform';
 //import C01componente from './components/C01componente';
 //import Variable from './components/C04variable';
 //import MatrizOperaciones from './components/P7matrizOperaciones';
+import { db } from "./firebase/firebase";
 
 
 function App() {
