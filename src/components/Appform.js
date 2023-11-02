@@ -32,6 +32,7 @@ const Appform = (props) => {
     }
   }
 
+  ///OBTENER DATOS POR ID DE BD
   useEffect(() => {
     if ( props.idActual === "") {
       setObjeto({...camposRegistro});

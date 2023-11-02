@@ -56,16 +56,18 @@ function App() {
    }
 
   return (
-    <div style={{background:"yellow", width:"350px", padding:"10px", textAlign:"center"}}>
+    <div style={{background:"yellow", width:"350px", padding:"10px"}}>
       <h1>App.js</h1>
       <Appform {...{idActual, setIdActual, fnRead}}></Appform>
       {
-        docBD.map((p) =>
-          <p key={p.id}>
-            No. 1 {p.nombre} ....
-            <span onClick={() => fnDelete(p.id)}> x </span>
-            ...
-            <span onClick={() => setIdActual(p.id)}> A </span>
+        docBD.map((r, index) =>
+          <p key={r.id}>
+           {index+1}. {r.nombre} -------
+            <span onClick={() => fnDelete(r.id)}> x </span>
+            --------
+            <span onClick={() => setIdActual(r.id)}> A </span> <br></br>
+
+            {r.edad} {r.genero}
           </p>
         )
       }
