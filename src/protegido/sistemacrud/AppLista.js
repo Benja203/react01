@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
  
 const AppLista = (props) => {
+  
 
   ////// Lectura fnRead ///////////
   const [docBD, setDocBD] = useState([]);
@@ -29,8 +30,8 @@ const AppLista = (props) => {
     if(window.confirm("Confirme para eliminar")){ // Ventana para confirmar
       await deleteDoc(doc(db, "persona", xId));   // Elimina en BD
     }
-    toast("Documento eliminado con éxito", { type: 'error', autoClose: 2000})
-    //alert("Se ELIMINO con éxito...");
+    toast("Se eliminado con éxito", { type: 'success', autoClose: 2000})
+    //alert("Se ELIMINO con éxito..."); 
   }
   
   return (

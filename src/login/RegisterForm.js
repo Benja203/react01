@@ -7,6 +7,7 @@ import { getDoc, doc } from 'firebase/firestore';
 import { auth, db } from '../conexion/firebase';
 
 import AppLista from '../protegido/sistemacrud/AppLista.js'
+import { ToastContainer, toast } from 'react-toastify';
 
 function RegisterForm() {
 
@@ -24,14 +25,17 @@ function RegisterForm() {
       //await registerUser(email, password);    // Verifica correo ya registrado
       navigate('/iniciarsesion'); // Redirigir a ruta /iniciarsesion
       console.log("Se registro usuario...xxx");
+      toast("Se registro usuario", { type: 'success', autoClose: 2000})
     } catch (error) {
       console.error('Error al registrar usuario:', error.message);
+      toast("Error al registrar usuario", { type: 'error', autoClose: 2000})
     }
   }
 
   return (
     <div  id='public'>
       <h2>Registro de Nuevo Usuario </h2>
+      <ToastContainer/>
       <form onSubmit={handleRegister}>
         <div>
           <label>Email:</label>

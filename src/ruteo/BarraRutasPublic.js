@@ -12,6 +12,7 @@ import Noticias from '../public/Noticias';
 import LoginForm from '../login/LoginForm';
 import Informacion from '../public/Informacion';
 import RegisterForm from '../login/RegisterForm';
+import Contacto from '../public/Contacto';
 
 const BarraRutasPublic = () => {
     const { user } = useAuth();
@@ -46,10 +47,10 @@ const BarraRutasPublic = () => {
           
           <div id="menu">
             <ul>
-              <li><Link to="/dashboard">Portada (Dashboard)</Link> </li>
               <li><Link to="/home">Inicio (Home)</Link> </li>
               <li><Link to="/noticias">Noticias (News)</Link> </li>
               <li><Link to="/informacion">Informacion (Info)</Link> </li>
+              <li><Link to="/contacto">Contacto (Contac)</Link> </li>
             </ul>
           </div>
         </nav>
@@ -59,7 +60,7 @@ const BarraRutasPublic = () => {
           <Route path="/nuevoregistro" element={<RegisterForm />} />
 
 
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/contacto" element={<Contacto />} />
           <Route path="/home" element={<Home />} />
           <Route path="/noticias" element={<Noticias />} />
           <Route path="/informacion" element={<Informacion />} />

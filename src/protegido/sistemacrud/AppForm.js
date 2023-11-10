@@ -2,8 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { addDoc, collection, doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../conexion/firebase";
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useAuth } from '../../ruteo/AuthContext';
+import { useNavigate } from 'react-router-dom';
+
+import { getAuth, signOut } from 'firebase/auth';
+
+
 
 const AppForm = (props) => {
+
+  const { user } = useAuth();
+  const auth = getAuth();
+  const navigate = useNavigate();
  
   ////////////////// MANEJAR INGRESO DE DATOS ///////////
   const handleStatusChange = (e) => {
@@ -11,6 +22,21 @@ const AppForm = (props) => {
     setObjeto({...objeto, [name]:value}); // Pasando name y value
     //console.log({name, value});
     //console.log(objeto);
+  }
+
+
+  
+  const handleSignOut = () => {
+    if (user) {
+      signOut(auth)
+        .then(() => {
+          // Cierre de sesión exitoso
+          navigate('/home'); // Redirigir a ruta /home
+        })
+        .catch((error) => {
+          console.error('Error al cerrar sesión:', error);
+        });
+    }
   }
 
   ////////////////// GUARDAR-ACTUALIZAR /////////////////
@@ -22,7 +48,7 @@ const AppForm = (props) => {
       if(props.idActual == ""){
         if(validarForm()){                            // Validación de form
           addDoc(collection(db, 'persona'), objeto);  // Guardar en BD
-          toast("Se registro con éxito...", { type: '' , autoClose: 2000})
+          toast("Se registro con éxito...", { type: 'success' , autoClose: 2000})
         }else{
           console.log("NO se guardo...");
         }
@@ -30,7 +56,7 @@ const AppForm = (props) => {
       }else{
         await updateDoc(doc(collection(db, "persona"), props.idActual), objeto);
         props.setIdActual("");                        // Borrar id
-        toast("Se actualizó con éxito...", { type: '' , autoClose: 2000})
+        toast("Se actualizó con éxito...", { type: 'success' , autoClose: 2000})
       }
     } catch (error) {
       toast("ERROR en crear o actualizar...", { type: 'error' , autoClose: 2000})
@@ -40,6 +66,15 @@ const AppForm = (props) => {
   const validarForm = () => {
     if(objeto.nombre === "" || /^\s+$/.test(objeto.nombre)){
       toast("Escriba un nombre...", { type: 'error' , autoClose: 2000})
+      return false;
+    }
+    if(objeto.edad==="" || /^\s+$/.test(objeto.edad)){
+      toast("Escriba una edad...", { type: 'error' , autoClose: 2000})
+      return false;
+    }
+
+    if(objeto.genero==="" || /^\s+$/.test(objeto.genero)){
+      toast("Seleccione un género...", { type: 'error' , autoClose: 2000})
       return false;
     }
     return true;
@@ -68,7 +103,7 @@ const AppForm = (props) => {
   return (
     <div style={{ background:"orange", padding:"10px" }}>
       <form onSubmit={handleSubmit} >
-        <button>Cerrar aplicación</button>
+        <button onClick={handleSignOut}> Cerrar aplicación</button>
 
         <h2>Registrar (AppForm.js)</h2>
         <ToastContainer/>
