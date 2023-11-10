@@ -23,7 +23,7 @@ function LoginForm() {
       await signIn(email, password);
       // Inicio de sesión exitoso: limpiar el error
       setError(null);
-      navigate('/sistema-crud'); // Redirigir a ruta /sistema-crud
+      navigate('/sistema-crud'); /// Redirigir a ruta /sistema-crud
     } catch (error) {
       setError('Error al iniciar sesión: ' + error.message);
     }
